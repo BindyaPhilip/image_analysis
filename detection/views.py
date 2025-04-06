@@ -38,7 +38,7 @@ class RustDetectionView(APIView):
         detection_result = self.detect_rust(detection.image.path)
         #update the detection record with resultse
         #syntax understanding.....detection.confidence- refers to the field in the model...detection_result['confidence']-this extracts from the dictionary returned by the method
-        detection.rust_detected = detection_result['rust_detected']
+        detection.rust_class = detection_result['rust_class']
         detection.confidence = detection_result['confidence']
         #save the updated model instance to the database
         detection.save()
@@ -46,7 +46,7 @@ class RustDetectionView(APIView):
         #HANDLING THE EDUCATION RESOURCES
         #initialize the variable that will handle the education resources
         education_resources = None
-        if detection.rust_detected:
+        if detection.rust_class == 'common_rust':  # Check for rust to include resources
             education_resources = self.get_education_resources()
 
         #serialize the response
@@ -66,23 +66,22 @@ class RustDetectionView(APIView):
         predicted_class_idx = np.argmax(prediction)
         predicted_class = class_names[predicted_class_idx]
         confidence = float(prediction[predicted_class_idx])
-        rust_detected = (predicted_class == 'common_rust')
         return {
-            'rust_detected': rust_detected,
+            'rust_class': predicted_class,
             'confidence': confidence
         }
 
     #STILL NEEDS MORE HANDLING
     def get_education_resources(self):
-    try:
-        education_service_url = 'http://education-service/api/resources/rust'
-        response = requests.get(education_service_url, timeout=5)
-        response.raise_for_status()
-        return response.json()
-    except requests.RequestException:
-        # Mock response for testing
-        return {
-            'title': 'Understanding Rust on Plants',
-            'link': 'https://example.com/rust-info',
-            'description': 'A guide to identifying and treating rust.'
+        try:
+            education_service_url = 'http://education-service/api/resources/rust'
+            response = requests.get(education_service_url, timeout=5)
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException:
+            # Mock response for testing
+            return {
+                'title': 'Understanding Rust on Plants',
+                'link': 'https://example.com/rust-info',
+                'description': 'A guide to identifying and treating rust.'
         }

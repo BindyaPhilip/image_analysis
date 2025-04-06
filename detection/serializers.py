@@ -6,6 +6,6 @@ from .models import RustDetectionResult
 class RustDetectionResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = RustDetectionResult
-        fields = ['id', 'image', 'uploaded_at', 'rust_detected', 'confidence']
-        read_only_fields = ['id', 'uploaded_at', 'rust_detected', 'confidence']
+        fields = ['id', 'image', 'uploaded_at', 'rust_class', 'confidence']
+        read_only_fields = ['id', 'uploaded_at', 'rust_class', 'confidence']
 

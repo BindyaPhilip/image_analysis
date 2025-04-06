@@ -9,7 +9,7 @@ class RustDetectionResult(models.Model):
 
     image = models.ImageField(upload_to='uploads') #this needs further looking at
     uploaded_at = models.DateTimeField(default=timezone.now)
-    rust_detected = models.BooleanField(default=False)
+    rust_class = models.CharField(max_length=20, default='unknown')
     confidence = models.FloatField(null = True, blank=True) #this is the confidence score from the model
 
 
