@@ -5,6 +5,4 @@ __pycache__/
 venv/
 env/
 *.egg-info/
-
-
 detection\rust_model\multi_class_model.keras

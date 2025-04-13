@@ -1,0 +1,81 @@
+2025-04-12 16:07:04,634 - INFO - Starting model retraining process
+2025-04-12 16:07:07,021 - INFO - Loaded model from C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:07:07,378 - ERROR - Error during model retraining: Training data contains 1 samples, which is not sufficient to split it into a validation and training set as specified by `validation_split=0.2`. Either provide more data, or a different value for the `validation_split` argument.
+2025-04-12 16:12:47,503 - INFO - Script started
+2025-04-12 16:12:48,786 - INFO - Django initialized successfully
+2025-04-12 16:12:48,787 - INFO - Imported TrainingImage model
+2025-04-12 16:12:48,787 - INFO - Model path: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:12:48,787 - INFO - Training dir: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\media\training_images
+2025-04-12 16:12:48,787 - INFO - Starting model retraining process
+2025-04-12 16:12:50,736 - INFO - Loaded model from C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:12:50,736 - INFO - Initialized data generator
+2025-04-12 16:12:50,736 - INFO - Loading training data
+2025-04-12 16:12:50,772 - INFO - Processing image: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\media\training_images\bean-blight.jpg
+2025-04-12 16:12:50,816 - INFO - Loaded 1 images
+2025-04-12 16:12:50,816 - ERROR - Error during model retraining: Training data contains 1 samples, which is not sufficient to split it into a validation and training set as specified by `validation_split=0.2`. Either provide more data, or a different value for the `validation_split` argument.
+2025-04-12 16:13:32,913 - INFO - Script started
+2025-04-12 16:13:34,261 - INFO - Django initialized successfully
+2025-04-12 16:13:34,262 - INFO - Imported TrainingImage model
+2025-04-12 16:13:34,262 - INFO - Model path: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:13:34,262 - INFO - Training dir: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\media\training_images
+2025-04-12 16:13:34,262 - INFO - Starting model retraining process
+2025-04-12 16:13:36,000 - INFO - Loaded model from C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:13:36,000 - INFO - Initialized data generator
+2025-04-12 16:13:36,001 - INFO - Loading training data
+2025-04-12 16:13:36,035 - INFO - Processing image: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\media\training_images\bean-blight.jpg
+2025-04-12 16:13:36,084 - INFO - Loaded 1 images
+2025-04-12 16:13:36,085 - ERROR - Error during model retraining: Training data contains 1 samples, which is not sufficient to split it into a validation and training set as specified by `validation_split=0.2`. Either provide more data, or a different value for the `validation_split` argument.
+2025-04-12 16:20:36,478 - INFO - Script started
+2025-04-12 16:20:36,479 - INFO - Setting DJANGO_SETTINGS_MODULE
+2025-04-12 16:20:36,503 - INFO - Attempting django.setup()
+2025-04-12 16:20:37,550 - INFO - Django initialized successfully
+2025-04-12 16:20:37,550 - INFO - Imported TrainingImage model
+2025-04-12 16:20:37,550 - INFO - Main block executed
+2025-04-12 16:26:46,975 - INFO - Script started
+2025-04-12 16:26:46,975 - INFO - Setting DJANGO_SETTINGS_MODULE
+2025-04-12 16:26:46,999 - INFO - Attempting django.setup()
+2025-04-12 16:26:48,033 - INFO - Django initialized successfully
+2025-04-12 16:26:48,039 - INFO - Imported TrainingImage model
+2025-04-12 16:26:48,041 - INFO - Main block executed
+2025-04-12 16:29:15,462 - INFO - Script started
+2025-04-12 16:29:15,462 - INFO - Setting DJANGO_SETTINGS_MODULE
+2025-04-12 16:29:15,470 - INFO - Attempting django.setup()
+2025-04-12 16:29:16,295 - INFO - Django initialized successfully
+2025-04-12 16:29:16,296 - INFO - Imported TrainingImage model
+2025-04-12 16:29:16,296 - INFO - Model path: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:29:16,296 - INFO - Training dir: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\media\training_images
+2025-04-12 16:29:16,296 - INFO - Starting model retraining process
+2025-04-12 16:29:18,209 - INFO - Loaded model from C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:29:18,210 - INFO - Initialized data generator
+2025-04-12 16:29:18,210 - INFO - Loading training data
+2025-04-12 16:29:18,256 - INFO - Processing image: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\media\training_images\bean-blight.jpg
+2025-04-12 16:29:18,307 - INFO - Loaded 1 images
+2025-04-12 16:29:18,307 - ERROR - Error during model retraining: Training data contains 1 samples, which is not sufficient to split it into a validation and training set as specified by `validation_split=0.2`. Either provide more data, or a different value for the `validation_split` argument.
+2025-04-12 16:32:04,747 - INFO - Script started
+2025-04-12 16:32:04,747 - INFO - Setting DJANGO_SETTINGS_MODULE
+2025-04-12 16:32:04,758 - INFO - Attempting django.setup()
+2025-04-12 16:32:05,767 - INFO - Django initialized successfully
+2025-04-12 16:32:05,767 - INFO - Imported TrainingImage model
+2025-04-12 16:32:05,767 - INFO - Model path: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:32:05,767 - INFO - Training dir: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\media\training_images
+2025-04-12 16:32:05,767 - INFO - Starting model retraining process
+2025-04-12 16:32:07,275 - INFO - Loaded model from C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:32:07,275 - INFO - Initialized data generator
+2025-04-12 16:32:07,275 - INFO - Loading training data
+2025-04-12 16:32:07,299 - INFO - Processing image: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\media\training_images\bean-blight.jpg
+2025-04-12 16:32:07,332 - INFO - Loaded 1 images
+2025-04-12 16:32:07,333 - ERROR - Error during model retraining: Training data contains 1 samples, which is not sufficient to split it into a validation and training set as specified by `validation_split=0.2`. Either provide more data, or a different value for the `validation_split` argument.
+2025-04-12 16:35:40,622 - INFO - Script started
+2025-04-12 16:35:40,623 - INFO - Setting DJANGO_SETTINGS_MODULE
+2025-04-12 16:35:40,630 - INFO - Attempting django.setup()
+2025-04-12 16:35:41,663 - INFO - Django initialized successfully
+2025-04-12 16:35:41,664 - INFO - Imported TrainingImage model
+2025-04-12 16:35:41,664 - INFO - Model path: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:35:41,665 - INFO - Training dir: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\media\training_images
+2025-04-12 16:35:41,665 - INFO - Starting model retraining process
+2025-04-12 16:35:43,324 - INFO - Loaded model from C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\detection\rust_model\multi_class_model.keras
+2025-04-12 16:35:43,324 - INFO - Initialized data generator
+2025-04-12 16:35:43,324 - INFO - Loading training data
+2025-04-12 16:35:43,359 - INFO - Processing image: C:\Users\USER\Desktop\UNIV\FINAL YEAR PROJECT\FYP-32\Image_Analysis\image_analysis\media\training_images\bean-blight.jpg
+2025-04-12 16:35:43,391 - INFO - Loaded 1 images
+2025-04-12 16:35:43,391 - ERROR - Error during model retraining: Training data contains 1 samples, which is not sufficient to split it into a validation and training set as specified by `validation_split=0.2`. Either provide more data, or a different value for the `validation_split` argument.
