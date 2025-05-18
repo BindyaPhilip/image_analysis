@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os 
+from datetime import timedelta
 from dotenv import load_dotenv
 from decouple import config
 import pymysql
@@ -25,7 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&m$lr^fj1ae^4phyair$cs8x^8g=7s^a&yzmxwpzi$_5n7e%b^'
+# SECRET_KEY = 'django-insecure-&m$lr^fj1ae^4phyair$cs8x^8g=7s^a&yzmxwpzi$_5n7e%b^'
+SECRET_KEY = 'django-insecure-n(p+yjn-7*sktodmmj3v9e6iw^x5c6#*2i)!)o*ty-(81%z6wc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,7 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'detection',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework_simplejwt',
+    'accounts',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -63,6 +68,12 @@ CORS_ALLOW_ALL_ORIGINS = True  # For development only
 # CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://your-frontend-domain.com']
 
 ROOT_URLCONF = 'image_analysis.urls'
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Vue frontend
+]
+
 
 TEMPLATES = [
     {
@@ -103,12 +114,26 @@ DATABASES = {
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         }
+    },
+    'user_management_db': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'user_management_db',
+        'USER': 'user_management_user',
+        'PASSWORD': 'Osbertpro@1976',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
+# Route models to specific databases
+DATABASE_ROUTERS = ['image_analysis.routers.AuthRouter']
+
+# Set the custom User model
+AUTH_USER_MODEL = 'accounts.User'
+
 # Debug: Print the values to check if they’re loaded
-print("DB_NAME:", config('DB_NAME'))
-print("DB_HOST:", config('DB_HOST'))
+# print("DB_NAME:", config('DB_NAME'))
+# print("DB_HOST:", config('DB_HOST'))
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -158,15 +183,56 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directory where uploaded files a
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
-        'rest_framework.parsers.MultiPartParser',  # Add this
+        'rest_framework.parsers.MultiPartParser',
         'rest_framework.parsers.FormParser',
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
     # add any other settings here
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',  # Explicitly set to match User model's UUID field
+    'USER_ID_CLAIM': 'user_id',
+}
+
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+# }
+
+
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
 }

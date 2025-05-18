@@ -4,8 +4,7 @@ from django.utils import timezone
 
 #create a model to store images and detection results
 class RustDetectionResult(models.Model):
-  
-
+    farmer_id = models.UUIDField(null=True, blank=True)
     image = models.ImageField(upload_to='uploads') #this needs further looking at
     uploaded_at = models.DateTimeField(default=timezone.now)
     rust_class = models.CharField(max_length=20, default='unknown')

@@ -6,3 +6,58 @@ venv/
 env/
 *.egg-info/
 detection\rust_model\multi_class_model.keras
+
+__pycache__/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django-specific
+db.sqlite3
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+.Python
+
+# VS Code settings (optional)
+.vscode/
+
+# macOS system files (optional)
+.DS_Store
+
+# Migrations (optional, if you prefer not to track them)
+# **Use with caution — usually you DO want to track initial migrations**
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+# Static files (if collected)
+staticfiles/
+static/
+media/
+
+# Coverage reports
+htmlcov/
+.coverage
+*.cover
+coverage.xml
+
+# MyPy / Pyright / Pyre type checkers
+.mypy_cache/
+.pyright/
+.pyre/
+
+# pytest
+.cache/
+
+# Pipenv / Poetry / etc.
+pip-log.txt
+poetry.lock
