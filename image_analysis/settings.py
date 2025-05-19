@@ -30,9 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n(p+yjn-7*sktodmmj3v9e6iw^x5c6#*2i)!)o*ty-(81%z6wc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','*']
 
 
 # Application definition
@@ -72,6 +72,7 @@ ROOT_URLCONF = 'image_analysis.urls'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vue frontend
+    "https://agrismart-gamma.vercel.app"
 ]
 
 
@@ -103,6 +104,28 @@ WSGI_APPLICATION = 'image_analysis.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         }
+#     },
+#     'user_management_db': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'user_management_db',
+#         'USER': 'user_management_user',
+#         'PASSWORD': 'Osbertpro@1976',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -117,13 +140,14 @@ DATABASES = {
     },
     'user_management_db': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'user_management_db',
-        'USER': 'user_management_user',
-        'PASSWORD': 'Osbertpro@1976',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': config('USER_DB_NAME', default='user_management_db'),
+        'USER': config('USER_DB_USER', default='user_management_user'),
+        'PASSWORD': config('USER_DB_PASSWORD', default='Osbertpro@1976'),
+        'HOST': config('USER_DB_HOST', default='localhost'),
+        'PORT': config('USER_DB_PORT', default='3306'),
     }
 }
+
 
 # Route models to specific databases
 DATABASE_ROUTERS = ['image_analysis.routers.AuthRouter']
@@ -170,6 +194,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
