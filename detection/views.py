@@ -15,8 +15,19 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from .models import RustDetectionResult
 from .serializers import RustDetectionResultSerializer, TrainingImageSerializer, DetectionHistorySerializer, DetectionItemSerializer
-
+import matplotlib
+matplotlib.use('Agg')  # Set the backend to non-interactive
 logger = logging.getLogger(__name__)
+# Reduce TensorFlow logging
+tf.get_logger().setLevel('ERROR')
+# Limit GPU memory growth if GPU is available
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    except RuntimeError as e:
+        print(e)
 
 class RustDetectionView(APIView):
     parser_classes = [MultiPartParser]
@@ -26,6 +37,15 @@ class RustDetectionView(APIView):
 
     MODEL_PATH = os.path.join(settings.BASE_DIR, 'detection', 'rust_model', 'multi_class_model.keras')
     model = tf.keras.models.load_model(MODEL_PATH)
+        _model = None
+    
+    @property
+    def model(self):
+        if self._model is None:
+            self._model = tf.keras.models.load_model(self.MODEL_PATH)
+            print("Model loaded successfully")
+        return self._model
+    print("Model loaded successfully")
 
     @swagger_auto_schema(
         operation_description=(
