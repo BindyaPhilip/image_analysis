@@ -1,4 +1,11 @@
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress TensorFlow info messages
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Disable GPU usage completely
+import tensorflow as tf
+# Configure TensorFlow to use minimal resources
+tf.config.threading.set_intra_op_parallelism_threads(1)
+tf.config.threading.set_inter_op_parallelism_threads(1)
+tf.config.set_soft_device_placement(True)
 import logging
 import numpy as np
 import tensorflow as tf
@@ -38,15 +45,25 @@ class RustDetectionView(APIView):
     MODEL_PATH = os.path.join(settings.BASE_DIR, 'detection', 'rust_model', 'multi_class_model.keras')
     _model = None  # Private class variable for lazy loading
     
-    @property
-    def model(self):
-        """Lazy-load the model on first access"""
-        if self._model is None:
-            # Configure TensorFlow to be more memory efficient
-            tf.keras.backend.clear_session()  # Clear any existing sessions
-            self._model = tf.keras.models.load_model(self.MODEL_PATH)
+    @classmethod
+    def get_model(cls):
+        """Class method to ensure single model instance"""
+        if cls._model is None:
+            # Clear any existing TensorFlow sessions
+            tf.keras.backend.clear_session()
+            
+            # Configure TensorFlow to use minimal memory
+            tf.config.optimizer.set_jit(False)  # Disable XLA
+            tf.config.optimizer.set_experimental_options({
+                "arithmetic_optimization": False,
+                "disable_meta_optimizer": True
+            })
+            
+            # Load model with custom objects if needed
+            cls._model = tf.keras.models.load_model(cls.MODEL_PATH)
             print("Model loaded successfully")
-        return self._model
+        return cls._model
+
     
 
     @swagger_auto_schema(
@@ -262,29 +279,30 @@ class RustDetectionView(APIView):
 
     def detect_rust(self, image_path):
         try:
+            # Get the model (will load on first call)
+            model = self.get_model()
+            
             # Load and process image
             img = tf.keras.preprocessing.image.load_img(image_path, target_size=(128, 128))
             img_array = tf.keras.preprocessing.image.img_to_array(img)
             img_array = img_array / 255.0
             img_array = np.expand_dims(img_array, axis=0)
             
-            # Predict and get results
-            prediction = self.model.predict(img_array, verbose=0)[0]  # verbose=0 silences output
-            class_names = ['common_rust', 'healthy', 'other_disease']
-            predicted_class_idx = np.argmax(prediction)
+            # Predict with minimal memory footprint
+            prediction = model.predict(img_array, verbose=0, batch_size=1)[0]
             
-            # Explicit cleanup
+            # Clean up
             del img, img_array
             tf.keras.backend.clear_session()
             
+            class_names = ['common_rust', 'healthy', 'other_disease']
             return {
-                'rust_class': class_names[predicted_class_idx],
-                'confidence': float(prediction[predicted_class_idx])
+                'rust_class': class_names[np.argmax(prediction)],
+                'confidence': float(prediction[np.argmax(prediction)])
             }
         except Exception as e:
-            logger.error(f"Error during detection: {e}")
+            logger.error(f"Detection error: {str(e)}")
             raise
-
     def get_education_resources(self, disease):
         try:
             education_service_url = 'http://localhost:8001/api/resources/'
