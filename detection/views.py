@@ -37,7 +37,7 @@ class RustDetectionView(APIView):
 
     MODEL_PATH = os.path.join(settings.BASE_DIR, 'detection', 'rust_model', 'multi_class_model.keras')
     model = tf.keras.models.load_model(MODEL_PATH)
-        _model = None
+    _model = None
     
     @property
     def model(self):
@@ -45,7 +45,7 @@ class RustDetectionView(APIView):
             self._model = tf.keras.models.load_model(self.MODEL_PATH)
             print("Model loaded successfully")
         return self._model
-    print("Model loaded successfully")
+    
 
     @swagger_auto_schema(
         operation_description=(
