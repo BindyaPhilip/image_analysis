@@ -36,12 +36,14 @@ class RustDetectionView(APIView):
     pagination_class = PageNumberPagination  # Define pagination_class
 
     MODEL_PATH = os.path.join(settings.BASE_DIR, 'detection', 'rust_model', 'multi_class_model.keras')
-    model = tf.keras.models.load_model(MODEL_PATH)
-    _model = None
+    _model = None  # Private class variable for lazy loading
     
     @property
     def model(self):
+        """Lazy-load the model on first access"""
         if self._model is None:
+            # Configure TensorFlow to be more memory efficient
+            tf.keras.backend.clear_session()  # Clear any existing sessions
             self._model = tf.keras.models.load_model(self.MODEL_PATH)
             print("Model loaded successfully")
         return self._model
@@ -259,19 +261,29 @@ class RustDetectionView(APIView):
         return paginator.get_paginated_response(history_serializer.data)
 
     def detect_rust(self, image_path):
-        img = tf.keras.preprocessing.image.load_img(image_path, target_size=(128, 128))
-        img_array = tf.keras.preprocessing.image.img_to_array(img)
-        img_array = img_array / 255.0
-        img_array = np.expand_dims(img_array, axis=0)
-        prediction = self.model.predict(img_array)[0]
-        class_names = ['common_rust', 'healthy', 'other_disease']
-        predicted_class_idx = np.argmax(prediction)
-        predicted_class = class_names[predicted_class_idx]
-        confidence = float(prediction[predicted_class_idx])
-        return {
-            'rust_class': predicted_class,
-            'confidence': confidence
-        }
+        try:
+            # Load and process image
+            img = tf.keras.preprocessing.image.load_img(image_path, target_size=(128, 128))
+            img_array = tf.keras.preprocessing.image.img_to_array(img)
+            img_array = img_array / 255.0
+            img_array = np.expand_dims(img_array, axis=0)
+            
+            # Predict and get results
+            prediction = self.model.predict(img_array, verbose=0)[0]  # verbose=0 silences output
+            class_names = ['common_rust', 'healthy', 'other_disease']
+            predicted_class_idx = np.argmax(prediction)
+            
+            # Explicit cleanup
+            del img, img_array
+            tf.keras.backend.clear_session()
+            
+            return {
+                'rust_class': class_names[predicted_class_idx],
+                'confidence': float(prediction[predicted_class_idx])
+            }
+        except Exception as e:
+            logger.error(f"Error during detection: {e}")
+            raise
 
     def get_education_resources(self, disease):
         try:
